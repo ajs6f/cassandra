@@ -417,6 +417,7 @@ public final class SystemKeyspace
                         .add(AggregateFcts.all())
                         .add(CastFcts.all())
                         .add(OperationFcts.all())
+                        .add(CustomFcts.all())
                         .build();
     }
 

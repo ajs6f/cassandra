@@ -2807,4 +2807,9 @@ public class DatabaseDescriptor
     {
         conf.report_unconfirmed_repaired_data_mismatches = enabled;
     }
+
+    public static Set<String> getCustomFcts()
+    {
+        return conf.custom_fcts;
+    }
 }

@@ -394,6 +394,12 @@ public class Config
     public volatile boolean back_pressure_enabled = false;
     public volatile ParameterizedClass back_pressure_strategy;
 
+    /**
+     * Class names to look for custom functions in.  They must define a static @code{Collection<Function> all()}
+     * that returns the custom functions to add.
+     */
+    public Set<String> custom_fcts = Sets.newConcurrentHashSet();
+
     public RepairCommandPoolFullStrategy repair_command_pool_full_strategy = RepairCommandPoolFullStrategy.queue;
     public int repair_command_pool_size = concurrent_validations;
 
