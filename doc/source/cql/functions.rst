@@ -397,7 +397,31 @@ You must specify the argument types (:token:`arguments_signature`) of the functi
 functions with the same name but a different signature (overloaded functions).
 
 ``DROP FUNCTION`` with the optional ``IF EXISTS`` keywords drops a function if it exists, but does not throw an error if
-it doesn't
+it doesn't.
+
+
+.. _custom-preloaded-functions:
+
+Custom preloaded functions
+``````````````````````````
+
+Cassandra has strict controls on what kinds of Java code may be used in UDFs or UDAs, but it is also possible to load arbitrary
+functions by distributing code to nodes and using some configuration in `cassandra.yaml`:
+
+.. code:: yaml
+    custom_fcts:
+        - com.example.SomeCustomFcts
+        - com.example.MoreCustomFcts
+
+Each class referenced in configuration should feature a static method with the signature:
+
+    public static Collection<org.apache.cassandra.cql3.functions.Function> all()
+
+This method will be called and the functions it returns will be made available to all keyspaces, just as are
+the built-in functions described above. Bytecode for classes with custom functions must be made available to 
+Cassandra nodes in JARs distributed to the nodes; unlike UDFs, Cassandra intentionally provides no help with that
+task. Please be *extremely* careful using this mechanism; stepping outside the sandbox provided by the UDF/UDA mechanism
+introduces very real risks.
 
 .. _aggregate-functions:
 
